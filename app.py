@@ -41,18 +41,6 @@ def prepare_data(train):
 
     return X_train
 
-# def col_drop_list(train):
-#     with st.sidebar:
-#         st.title("Select Features to delete: ")
-#         with st.form('select features from delete:', clear_on_submit=True):
-#             columns_del = st.multiselect("Select Columns: ", 
-#                             ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ], default=None)
-#             update = st.form_submit_button("Delete Columns",)
-#             if update:
-#                 train = train.drop(columns = columns_del)
-#                 train = prepare_data(train)
-    
-#     return train
 
 def col_drop_list(train):
     columns_del = ['PassengerId', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ]
@@ -114,7 +102,7 @@ def load_data():
 pModel = st.button("Prepare Model",)
 if pModel == True:
     X_train, Y_train = load_data()
-
+    result_comp = pd.DataFrame(columns= ['Model', 'Kernel', 'Score'])
     st.header('Data Loading completed')
 
     st.header("Model train")
@@ -138,17 +126,21 @@ if pModel == True:
                 # X_train = scaler.fit_transform(X_train)
                 clf.fit(X_train, Y_train)
                 score = cross_val_score(clf, X_train, Y_train, cv=5).mean()
-                st.write(f"{model} : {kernel}: {score}")
+
+                result_comp = result_comp.append({'Model': model, 'Kernel': kernel, 'Score': score}, ignore_index=True)
+                # st.write(f"{model} : {kernel}: {score}")
                 with open(f'./models/{model}_{kernel}.pkl', "wb") as f:
                     pkl.dump(clf, f)
 
         else:
             clf = models[model].fit(X_train, Y_train)
             score = cross_val_score(clf, X_train, Y_train, cv=5).mean()
-            st.write(f"{model}: {score}")
+            result_comp = result_comp.append({'Model': model, 'Kernel': None, 'Score': score}, ignore_index=True)
+            # st.write(f"{model}: {score}")
             with open(f'./models/{model}.pkl', "wb") as f:
                 pkl.dump(clf, f)
 
+    st.dataframe(result_comp, hide_index=True)
 
 # st.button("Test Model", on_click=test_page)
 
