@@ -42,9 +42,9 @@ def prepare_data(train):
 
     train = train.drop(columns = obj_features)
     
-    with st.expander('Data: '):
-        st.dataframe(train,hide_index=True)
-        st.dataframe(Y_train,hide_index=True)
+    # with st.expander('Data: '):
+    #     st.dataframe(train,hide_index=True)
+    #     st.dataframe(Y_train,hide_index=True)
     return train, Y_train
 
 def col_drop_list(train):
@@ -57,9 +57,9 @@ def col_drop_list(train):
             update = st.form_submit_button("Delete Columns",)
             if update:
                 train = train.drop(columns = columns_del)
-
                 X_train, Y_train = prepare_data(train)
-                return X_train, Y_train
+                
+        return X_train, Y_train
 
 
 def age_band(df):
