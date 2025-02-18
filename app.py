@@ -27,6 +27,7 @@ def cata2lbl(df, feature, values):
         df.loc[(df[feature] == value), feature+'_l'] = values.index(value)
     with open('./models/Features.pkl', 'wb') as f:
         pkl.dump(feature_dict, f)
+    return df
 
 def prepare_data(train):
     Y_train = train['Survived']
@@ -34,9 +35,11 @@ def prepare_data(train):
     # X_train = train.drop(columns = ['Survived'])
 
     st.dataframe(train, hide_index=True)
-    for feature in list(train.select_dtypes(include=[object])):
+    obj_features = list(train.select_dtypes(include=[object]))
+    for feature in obj_features:
         train = cata2lbl(train, feature, sorted(list(train[feature].unique())))
-        train = train.drop(columns = feature)
+
+    train = train.drop(columns = obj_features)
     st.header('Data Loading completes')
     with st.expander('Data: '):
         st.dataframe(train,hide_index=True)
