@@ -114,7 +114,7 @@ def load_data():
 
 # st.dataframe(X_trainC,hide_index=True)
 # st.dataframe(X_testC,hide_index=True)
-st.session_state['X_train'], st.session_state['Y_train'] = load_data()
+
 st.header('Data Loading completed')
 
 with st.expander('Training Data: '):
@@ -122,8 +122,9 @@ with st.expander('Training Data: '):
 
 st.header("Model train")
 
-pModel = st.button("Preapare Model",)
+pModel = st.button("Prepare Model",)
 if pModel == True:
+    X_train, Y_train = load_data()
     models = {
         "SVM" : {'model' : SVC(), 'kernel' : ['linear', 'rbf', 'poly', 'sigmoid'] },
         "DT" : DecisionTreeClassifier(),
