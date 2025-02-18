@@ -48,7 +48,7 @@ def load_data():
 
 
     # columns_del = ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ]
-    if columns_del == None:
+    if columns_del is not None:
         train = train.drop(columns = columns_del )
 
     # test = test.drop(columns = ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare', 'Cabin' ])
