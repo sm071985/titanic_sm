@@ -105,8 +105,8 @@ scoreD = list()
 pModel = st.button("Prepare Model",)
 if pModel == True:
     X_train, Y_train = load_data()
-    with st.expander:
-        st.dataframe(X_train, hide_index=True)
+
+    st.dataframe(X_train, hide_index=True)
 
     # result_comp = pd.DataFrame(columns= ['Model', 'Kernel', 'Score'])
 
