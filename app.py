@@ -87,7 +87,9 @@ if st.session_state['pModel'] == True:
     }
 #  
     X_train, Y_train = load_data()
-
+    with st.expander():
+        st.title('Training Date: ')
+        st.dataframe(X_train,hide_index=True)
     # st.dataframe(X_train,)
     model_name = list(models.keys())
     # st.write(f"{model_name}:")
