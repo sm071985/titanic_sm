@@ -17,7 +17,7 @@ st.title("Training")
 def cata2lbl(df, features):
     feature_dict = {}
     for feature in features:
-        values = list(df[feature].unique())
+        values = list(df[feature].unique()).sort() #
         for value in values:
             fea_key = value.upper() if type(value) == str else value
             if feature+'_l' not in feature_dict.keys():
