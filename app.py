@@ -37,7 +37,7 @@ def prepare_data(train):
     for feature in list(X_train.select_dtypes(include=[object])):
         X_train = cata2lbl(X_train, feature, sorted(list(X_train[feature].unique())))
         X_train = X_train.drop(columns = feature)
-    st.header(Data Loading completes'')
+    st.header('Data Loading completes')
     return X_train, Y_train
 
 def col_drop_list():
