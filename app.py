@@ -95,6 +95,10 @@ def load_data():
 # st.dataframe(X_testC,hide_index=True)
 X_train, Y_train = load_data()
 st.header('Data Loading completed')
+
+with st.expander('Training Date: '):
+        st.dataframe(X_train,hide_index=True)
+
 st.header("Model train")
 
 pModel = st.button("Preapare Model",)
@@ -108,8 +112,7 @@ if pModel == True:
 # #  
 #     X_train, Y_train = load_data()
 
-    with st.expander('Training Date: '):
-        st.dataframe(X_train,hide_index=True)
+
     # st.dataframe(X_train,)
     model_name = list(models.keys())
     # st.write(f"{model_name}:")
