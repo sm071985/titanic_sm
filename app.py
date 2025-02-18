@@ -76,7 +76,7 @@ def load_data():
     col_drop_list(train)
     # X_train, Y_train = col_drop_list(train)
     # X_train, Y_train = prepare_data(train)
-    return X_train, Y_train
+    # return X_train, Y_train
 
 
 
@@ -93,42 +93,42 @@ def load_data():
 # st.dataframe(X_testC,hide_index=True)
 load_data()
 
-st.header("Model train")
+# st.header("Model train")
 
-pModel = st.button("Preapare Model",)
-if st.session_state['pModel'] == True:
-    models = {
-        "SVM" : {'model' : SVC(), 'kernel' : ['linear', 'rbf', 'poly', 'sigmoid'] },
-        "DT" : DecisionTreeClassifier(),
-        "RF" : RandomForestClassifier(),
-        "NB" : GaussianNB()
-    }
-#  
-    X_train, Y_train = load_data()
+# pModel = st.button("Preapare Model",)
+# if st.session_state['pModel'] == True:
+#     models = {
+#         "SVM" : {'model' : SVC(), 'kernel' : ['linear', 'rbf', 'poly', 'sigmoid'] },
+#         "DT" : DecisionTreeClassifier(),
+#         "RF" : RandomForestClassifier(),
+#         "NB" : GaussianNB()
+#     }
+# #  
+#     X_train, Y_train = load_data()
 
-    with st.expander('Training Date: '):
-        st.dataframe(X_train,hide_index=True)
-    # st.dataframe(X_train,)
-    model_name = list(models.keys())
-    # st.write(f"{model_name}:")
-    for model in model_name:
-        if model == "SVM":
-            scaler = StandardScaler()
-            for kernel in models[model]['kernel']:
-                clf = models[model]['model'].set_params(kernel=kernel)
-                # X_train = scaler.fit_transform(X_train)
-                clf.fit(X_train, Y_train)
-                score = cross_val_score(clf, X_train, Y_train, cv=5).mean()
-                st.write(f"{model} : {kernel}: {score}")
-                with open(f'./models/{model}_{kernel}.pkl', "wb") as f:
-                    pkl.dump(clf, f)
+#     with st.expander('Training Date: '):
+#         st.dataframe(X_train,hide_index=True)
+#     # st.dataframe(X_train,)
+#     model_name = list(models.keys())
+#     # st.write(f"{model_name}:")
+#     for model in model_name:
+#         if model == "SVM":
+#             scaler = StandardScaler()
+#             for kernel in models[model]['kernel']:
+#                 clf = models[model]['model'].set_params(kernel=kernel)
+#                 # X_train = scaler.fit_transform(X_train)
+#                 clf.fit(X_train, Y_train)
+#                 score = cross_val_score(clf, X_train, Y_train, cv=5).mean()
+#                 st.write(f"{model} : {kernel}: {score}")
+#                 with open(f'./models/{model}_{kernel}.pkl', "wb") as f:
+#                     pkl.dump(clf, f)
 
-        else:
-            clf = models[model].fit(X_train, Y_train)
-            score = cross_val_score(clf, X_train, Y_train, cv=5).mean()
-            st.write(f"{model}: {score}")
-            with open(f'./models/{model}.pkl', "wb") as f:
-                pkl.dump(clf, f)
+#         else:
+#             clf = models[model].fit(X_train, Y_train)
+#             score = cross_val_score(clf, X_train, Y_train, cv=5).mean()
+#             st.write(f"{model}: {score}")
+#             with open(f'./models/{model}.pkl', "wb") as f:
+#                 pkl.dump(clf, f)
 
 
 # st.button("Test Model", on_click=test_page)
