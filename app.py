@@ -16,7 +16,9 @@ st.title("Training")
 
 with st.sidebar:
     st.title("Select Features to delete: ")
-    columns_del = st.multiselect("Select Columns: ", ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ], default=None)
+    columns_del = st.multiselect("Select Columns: ", 
+                ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ], default=None)
+    st.write(f'Dropping columns: {columns_del}')
 def age_band(df):
     df.loc[df['Age'] <= 16, 'AgeBand'] = '0 - 16'
     df.loc[(df['Age'] > 16) & (df['Age'] <= 32), 'AgeBand'] = '17 - 32'
