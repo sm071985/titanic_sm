@@ -16,15 +16,19 @@ st.title("Training")
 # if 'columns_del' in st.session_state:
 #     del st.session_state['columns_del']
 
-feature_dict = {}
-def cata2lbl(df, feature, values):
-    for value in values:
-        # st.write(feature_dict[feature] )
-        if feature+'_l' not in feature_dict.keys():
-            feature_dict[feature+'_l'] = {value.upper(): values.index(value)}
-        else:
-            feature_dict[feature+'_l'].update({value.upper(): values.index(value)})
-        df.loc[(df[feature] == value), feature+'_l'] = values.index(value)
+
+def cata2lbl(df, features):
+    feature_dict = {}
+    for feature in features:
+        values = df[feature].unique()
+        for value in values:
+            # st.write(feature_dict[feature] )
+            if feature+'_l' not in feature_dict.keys():
+                feature_dict[feature+'_l'] = {value.upper(): values.index(value)}
+            else:
+                feature_dict[feature+'_l'].update({value.upper(): values.index(value)})
+            df.loc[(df[feature] == value), feature+'_l'] = values.index(value)
+        df = df.drop(columns = [feature])
     with open('./models/Features.pkl', 'wb') as f:
         pkl.dump(feature_dict, f)
     return df
@@ -37,8 +41,8 @@ def prepare_data(train):
     # st.dataframe(train, hide_index=True)
     obj_features = list(X_train.select_dtypes(include=[object]))
     # st.write("Prepare_data")
-    for feature in obj_features:
-        train = cata2lbl(train, feature, sorted(list(X_train[feature].unique())))
+  
+    train = cata2lbl(train, obj_features,)
 
     X_train = X_train.drop(columns = obj_features)
     
@@ -96,7 +100,7 @@ def load_data():
 X_train, Y_train = load_data()
 st.header('Data Loading completed')
 
-with st.expander('Training Date: '):
+with st.expander('Training Data: '):
         st.dataframe(X_train,hide_index=True)
 
 st.header("Model train")
