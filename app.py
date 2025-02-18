@@ -33,7 +33,7 @@ def prepare_data(train):
 
     X_train = train.drop(columns = ['Survived'])
 
-    # st.write(X_train)
+    st.dataframe(X_train)
     for feature in list(X_train.select_dtypes(include=[object])):
         X_train = cata2lbl(X_train, feature, sorted(list(X_train[feature].unique())))
         X_train = X_train.drop(columns = feature)
