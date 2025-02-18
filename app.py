@@ -32,20 +32,20 @@ def cata2lbl(df, feature, values):
 def prepare_data(train):
     Y_train = train['Survived']
 
-    # X_train = train.drop(columns = ['Survived'])
+    X_train = train.drop(columns = ['Survived'])
     # st.write("Prepare_data")
     # st.dataframe(train, hide_index=True)
-    obj_features = list(train.select_dtypes(include=[object]))
+    obj_features = list(X_train.select_dtypes(include=[object]))
     # st.write("Prepare_data")
     for feature in obj_features:
-        train = cata2lbl(train, feature, sorted(list(train[feature].unique())))
+        train = cata2lbl(train, feature, sorted(list(X_train[feature].unique())))
 
-    train = train.drop(columns = obj_features)
+    X_train = X_train.drop(columns = obj_features)
     
     # with st.expander('Data: '):
     #     st.dataframe(train,hide_index=True)
     #     st.dataframe(Y_train,hide_index=True)
-    return train, Y_train
+    return X_train, Y_train
 
 def col_drop_list(train):
 
@@ -69,11 +69,6 @@ def age_band(df):
     df.loc[(df['Age'] > 48) & (df['Age'] <= 64), 'AgeBand'] = '49 - 64'
     df.loc[(df['Age'] > 64),'AgeBand'] = '65 Above'
     return df
-
-
-    # st.write(feature_dict,)
-    return df
-
 
 # @st.cache_data
 def load_data():
