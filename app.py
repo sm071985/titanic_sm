@@ -20,7 +20,7 @@ st.title("Training")
 def cata2lbl(df, features):
     feature_dict = {}
     for feature in features:
-        values = df[feature].unique()
+        values = [df[feature].unique()]
         for value in values:
             # st.write(feature_dict[feature] )
             if feature+'_l' not in feature_dict.keys():
