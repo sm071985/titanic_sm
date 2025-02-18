@@ -13,6 +13,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 
 st.title("Training")
+del st.session_state['columns_del']
 
 with st.sidebar:
     st.title("Select Features to delete: ")
