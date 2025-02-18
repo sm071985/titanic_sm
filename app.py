@@ -77,8 +77,10 @@ def age_band(df):
 # @st.cache_data
 def load_data():
     train = pd.read_csv("./dataset/train.csv")
+    st.write(train.is_null().sum())
     train = train.dropna()
     train = age_band(train)
+    train = train.drop(columns = ['Age'])
     # col_drop_list(train)
     X_train, Y_train = col_drop_list(train)
     # X_train, Y_train = prepare_data(train)
