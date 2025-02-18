@@ -40,7 +40,7 @@ def prepare_data(train):
     st.header('Data Loading completes')
     return X_train, Y_train
 
-def col_drop_list():
+def col_drop_list(train):
     with st.sidebar:
         st.title("Select Features to delete: ")
         with st.form('select features from delete:', clear_on_submit=True):
