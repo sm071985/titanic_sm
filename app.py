@@ -93,7 +93,7 @@ def load_data():
 
 # st.dataframe(X_trainC,hide_index=True)
 # st.dataframe(X_testC,hide_index=True)
- X_train, Y_train = load_data()
+X_train, Y_train = load_data()
 st.header('Data Loading completed')
 st.header("Model train")
 
