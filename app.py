@@ -49,21 +49,13 @@ def cata2lbl(df, feature, values):
     # st.write(feature_dict,)
     return df
 
-@st.cache_data
-def load_data():
-    train = pd.read_csv("./dataset/train.csv")
-    train = train.dropna()
-    train = age_band(train)
-    train = train.drop(columns = ['Age'])
 
-
+def prepare_data(train):
     st.write(f"Dropping columns: {st.session_state['columns_del']}")
     if st.session_state['columns_del'] is not None:
         columns_del = st.session_state['columns_del']
         st.write(f'Dropping columns: {columns_del}')
         train = train.drop(columns = columns_del )
-
-    # test = test.drop(columns = ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare', 'Cabin' ])
 
     Y_train = train['Survived']
 
@@ -75,6 +67,19 @@ def load_data():
         X_train = X_train.drop(columns = feature)
     # st.write(X_train)
     return X_train, Y_train
+
+
+@st.cache_data
+def load_data():
+    train = pd.read_csv("./dataset/train.csv")
+    train = train.dropna()
+    train = age_band(train)
+    train = train.drop(columns = ['Age'])
+    X_train, Y_train = prepare_data(train)
+    return X_train, Y_train
+
+
+
 
 # le = LabelEncoder()
 
