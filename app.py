@@ -118,7 +118,7 @@ def load_data():
 st.header('Data Loading completed')
 
 with st.expander('Training Data: '):
-        st.dataframe(st.session_state['X_train'],hide_index=True)
+        st.dataframe(X_train,hide_index=True)
 
 st.header("Model train")
 
