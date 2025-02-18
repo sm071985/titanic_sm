@@ -13,14 +13,20 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 
 st.title("Training")
-if 'columns_del' in st.session_state:
-    del st.session_state['columns_del']
+# if 'columns_del' in st.session_state:
+#     del st.session_state['columns_del']
 
 with st.sidebar:
     st.title("Select Features to delete: ")
-    st.session_state['columns_del'] = st.multiselect("Select Columns: ", 
-                ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ], default=None)
-    st.write(f"Dropping columns: {st.session_state['columns_del']}")
+    with st.form('select features from delete:'):
+        columns_del = st.multiselect("Select Columns: ", 
+                    ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ], default=None)
+        if st.form_submit_button("Delete Columns"):
+            st.session_state['columns_del'] = columns_del
+            st.write(f"Dropping columns: {st.session_state['columns_del']}")
+        else:
+            st.session_state['columns_del'] = None
+
 def age_band(df):
     df.loc[df['Age'] <= 16, 'AgeBand'] = '0 - 16'
     df.loc[(df['Age'] > 16) & (df['Age'] <= 32), 'AgeBand'] = '17 - 32'
