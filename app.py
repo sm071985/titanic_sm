@@ -83,14 +83,14 @@ def load_data():
     imputer = KNNImputer(n_neighbors=5)
 
     # Create a DataFrame with 'Age' as a 2D array
-    age_2d = train_data[['Age']]
+    age_2d = train[['Age']]
 
     # Impute the missing values
     age_imputed = imputer.fit_transform(age_2d)
 
     # Replace the 'Age' column with the imputed values
-    train_data['Age'] = age_imputed
-    
+    train['Age'] = age_imputed
+
     st.write(train.isnull().sum())
     train = train.dropna()
     train = age_band(train)
