@@ -47,6 +47,7 @@ def prepare_data(train):
     return train, Y_train
 
 def col_drop_list(train):
+
     with st.sidebar:
         st.title("Select Features to delete: ")
         with st.form('select features from delete:', clear_on_submit=True):
@@ -76,8 +77,8 @@ def load_data():
     train = pd.read_csv("./dataset/train.csv")
     train = train.dropna()
     train = age_band(train)
-    col_drop_list(train)
-    # X_train, Y_train = col_drop_list(train)
+    # col_drop_list(train)
+    X_train, Y_train = col_drop_list(train)
     # X_train, Y_train = prepare_data(train)
     # return X_train, Y_train
 
