@@ -98,7 +98,7 @@ st.header('Data Loading completed')
 st.header("Model train")
 
 pModel = st.button("Preapare Model",)
-if st.session_state['pModel'] == True:
+if pModel == True:
     models = {
         "SVM" : {'model' : SVC(), 'kernel' : ['linear', 'rbf', 'poly', 'sigmoid'] },
         "DT" : DecisionTreeClassifier(),
