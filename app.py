@@ -33,15 +33,15 @@ def prepare_data(train):
     Y_train = train['Survived']
 
     # X_train = train.drop(columns = ['Survived'])
-    st.write("Prepare_data")
+    # st.write("Prepare_data")
     # st.dataframe(train, hide_index=True)
     obj_features = list(train.select_dtypes(include=[object]))
-    st.write("Prepare_data")
+    # st.write("Prepare_data")
     for feature in obj_features:
         train = cata2lbl(train, feature, sorted(list(train[feature].unique())))
 
     train = train.drop(columns = obj_features)
-    st.header('Data Loading completes')
+    
     with st.expander('Data: '):
         st.dataframe(train,hide_index=True)
         st.dataframe(Y_train,hide_index=True)
@@ -99,7 +99,7 @@ def load_data():
 # st.dataframe(X_trainC,hide_index=True)
 # st.dataframe(X_testC,hide_index=True)
 load_data()
-
+st.header('Data Loading completed')
 # st.header("Model train")
 
 # pModel = st.button("Preapare Model",)
