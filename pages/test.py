@@ -8,7 +8,7 @@ if 'model_loaded' not in st.session_state:
 
 def take_input(model=None):
     if model is not None:
-        with st.form('Select Parameters to test:', clear_on_submit=True):
+        with st.form('Select Parameters to test:', ):
             features = pkl.load(open(f'./models/Features.pkl', 'rb'))
             # st.write(features)
             keys = [x for x in features.keys()]
@@ -19,7 +19,7 @@ def take_input(model=None):
                 options = features[feature].keys()
                 # st.write(options)
                 tempV1 = features[feature][st.selectbox(f"Select value for {feature[::-1][2:][::-1]}", 
-                        options = options, default_value = None), ]
+                        options = options,), ]
                 empL = []
                 empL.append(tempV1)
                 new_data[feature] = empL
