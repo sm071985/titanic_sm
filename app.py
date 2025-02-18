@@ -19,7 +19,7 @@ def cata2lbl(df, features):
     for feature in features:
         values = sorted(list(df[feature].unique())) #
         for value in values:
-            fea_key = value.upper() if type(value) == str else value
+            fea_key = value.upper() if type(value) == str else int(value)
             if feature+'_l' not in feature_dict.keys():
                 feature_dict[feature+'_l'] = {fea_key : values.index(value)}
             else:
