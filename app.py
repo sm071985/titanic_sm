@@ -132,7 +132,6 @@ if pModel == True:
         "NB" : GaussianNB()
     }
 # #  
-    X_train, Y_train = st.session_state['X_train'], st.session_state['Y_train']
 
     # st.dataframe(X_train,)
     model_name = list(models.keys())
