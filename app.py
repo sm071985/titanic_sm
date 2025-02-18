@@ -13,16 +13,12 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 
 st.title("Training")
-# if 'columns_del' in st.session_state:
-#     del st.session_state['columns_del']
-
 
 def cata2lbl(df, features):
     feature_dict = {}
     for feature in features:
         values = list(df[feature].unique())
         for value in values:
-            # st.write(feature_dict[feature] )
             if feature+'_l' not in feature_dict.keys():
                 feature_dict[feature+'_l'] = {value.upper(): values.index(value)}
             else:
@@ -37,18 +33,11 @@ def prepare_data(train):
     # Y_train = train['Survived']
 
     X_train = train.drop(columns = ['Survived'])
-    # st.write("Prepare_data")
-    # st.dataframe(train, hide_index=True)
+
     obj_features = list(X_train.select_dtypes(include=[object]))
     # st.write("Prepare_data")
-  
     X_train = cata2lbl(X_train, obj_features,)
 
-    #X_train = X_train.drop(columns = obj_features)
-    
-    # with st.expander('Data: '):
-    #     st.dataframe(train,hide_index=True)
-    #     st.dataframe(Y_train,hide_index=True)
     return X_train
 
 def col_drop_list(train):
@@ -115,16 +104,15 @@ def load_data():
 # st.dataframe(X_trainC,hide_index=True)
 # st.dataframe(X_testC,hide_index=True)
 
-st.header('Data Loading completed')
-
-with st.expander('Training Data: '):
-        st.dataframe(X_train,hide_index=True)
-
-st.header("Model train")
 
 pModel = st.button("Prepare Model",)
 if pModel == True:
     X_train, Y_train = load_data()
+
+    st.header('Data Loading completed')
+
+    st.header("Model train")
+
     models = {
         "SVM" : {'model' : SVC(), 'kernel' : ['linear', 'rbf', 'poly', 'sigmoid'] },
         "DT" : DecisionTreeClassifier(),
