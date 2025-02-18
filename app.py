@@ -42,7 +42,7 @@ def prepare_data(train):
     obj_features = list(X_train.select_dtypes(include=[object]))
     # st.write("Prepare_data")
   
-    train = cata2lbl(train, obj_features,)
+    X_train = cata2lbl(X_train, obj_features,)
 
     #X_train = X_train.drop(columns = obj_features)
     
