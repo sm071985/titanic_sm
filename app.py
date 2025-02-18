@@ -137,7 +137,7 @@ if pModel == True:
                 # kernelD = kernelD.append(kernel)
                 # scoreD = scoreD.append(score)
 
-                result_comp = res_comp.update({'Model': model, 'Kernel': kernel, 'Score': score},)
+                res_comp.update({'Model': model, 'Kernel': kernel, 'Score': score},)
                 # st.write(f"{model} : {kernel}: {score}")
                 with open(f'./models/{model}_{kernel}.pkl', "wb") as f:
                     pkl.dump(clf, f)
@@ -150,7 +150,7 @@ if pModel == True:
             # # kernel = kernel.append(kernel)
             # scoreD = scoreD.append(score)
 
-            res_comp = res_comp.update({'Model': model, 'Kernel': None, 'Score': score},)
+            res_comp.update({'Model': model, 'Kernel': None, 'Score': score},)
             # st.write(f"{model}: {score}")
             with open(f'./models/{model}.pkl', "wb") as f:
                 pkl.dump(clf, f)
@@ -159,7 +159,7 @@ if pModel == True:
     # result_comp['Kernel'] = kernelD
     # result_comp['Score'] = scoreD
 
-    st.dataframe(result_comp, hide_index=True)
+    st.dataframe(res_comp, hide_index=True)
 
 # st.button("Test Model", on_click=test_page)
 
