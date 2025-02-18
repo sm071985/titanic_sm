@@ -77,6 +77,8 @@ def age_band(df):
 
 # @st.cache_data
 def load_data():
+
+
     train = pd.read_csv("./dataset/train.csv")
     from sklearn.impute import KNNImputer
 
@@ -113,7 +115,7 @@ def load_data():
 
 # st.dataframe(X_trainC,hide_index=True)
 # st.dataframe(X_testC,hide_index=True)
-X_train, Y_train = load_data()
+st.session_state['X_train'], st.session_state['Y_train'] = load_data()
 st.header('Data Loading completed')
 
 with st.expander('Training Data: '):
@@ -130,8 +132,7 @@ if pModel == True:
         "NB" : GaussianNB()
     }
 # #  
-#     X_train, Y_train = load_data()
-
+    X_train, Y_train = st.session_state['X_train'], st.session_state['Y_train']
 
     # st.dataframe(X_train,)
     model_name = list(models.keys())
