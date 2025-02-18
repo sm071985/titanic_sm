@@ -103,9 +103,10 @@ pModel = st.button("Prepare Model",)
 if pModel == True:
     X_train, Y_train = load_data()
     result_comp = pd.DataFrame(columns= ['Model', 'Kernel', 'Score'])
-    modelD = []
-    kernelD = []
-    scoreD = []
+
+    modelD = list()
+    kernelD = list()
+    scoreD = list()
 
     st.header('Data Loading completed')
 
