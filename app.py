@@ -136,9 +136,9 @@ if pModel == True:
                 clf.fit(X_train, Y_train)
                 score = cross_val_score(clf, X_train, Y_train, cv=5).mean()
 
-                modelD = modelD.append(model)
-                kernelD = kernelD.append(kernel)
-                scoreD = scoreD.append(score)
+                modelD.append(model)
+                kernelD.append(kernel)
+                scoreD.append(score)
 
                 # res_comp.update({'Model': model, 'Kernel': kernel, 'Score': score},)
                 # st.write(f"{model} : {kernel}: {score}")
@@ -149,9 +149,9 @@ if pModel == True:
             clf = models[model].fit(X_train, Y_train)
             score = cross_val_score(clf, X_train, Y_train, cv=5).mean()
 
-            modelD = modelD.append(model)
+            modelD.append(model)
             # kernel = kernel.append(kernel)
-            scoreD = scoreD.append(score)
+            scoreD.append(score)
 
             # res_comp.update({'Model': model, 'Kernel': None, 'Score': score},)
             # st.write(f"{model}: {score}")
