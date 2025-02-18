@@ -33,7 +33,7 @@ def prepare_data(train):
     Y_train = train['Survived']
 
     # X_train = train.drop(columns = ['Survived'])
-
+    st.write("Prepare_data'")
     st.dataframe(train, hide_index=True)
     obj_features = list(train.select_dtypes(include=[object]))
     for feature in obj_features:
@@ -56,6 +56,7 @@ def col_drop_list(train):
             update = st.form_submit_button("Delete Columns",)
             if update:
                 train = train.drop(columns = columns_del)
+
                 X_train, Y_train = prepare_data(train)
                 return X_train, Y_train
 
