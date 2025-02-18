@@ -151,6 +151,7 @@ if pModel == True:
 
             modelD.append(model)
             # kernel = kernel.append(kernel)
+            kernelD.append(None)
             scoreD.append(score)
 
             # res_comp.update({'Model': model, 'Kernel': None, 'Score': score},)
