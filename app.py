@@ -38,6 +38,9 @@ def prepare_data(train):
         X_train = cata2lbl(X_train, feature, sorted(list(X_train[feature].unique())))
         X_train = X_train.drop(columns = feature)
     st.header('Data Loading completes')
+    with st.expander('Data: '):
+        st.dataframe(X_train,hide_index=True)
+        st.dataframe(Y_train,hide_index=True)
     return X_train, Y_train
 
 def col_drop_list(train):
@@ -70,8 +73,8 @@ def load_data():
     train = pd.read_csv("./dataset/train.csv")
     train = train.dropna()
     train = age_band(train)
-    train = train.drop(columns = ['Age'])
-    X_train, Y_train = col_drop_list(train)
+    col_drop_list(train)
+    # X_train, Y_train = col_drop_list(train)
     # X_train, Y_train = prepare_data(train)
     return X_train, Y_train
 
