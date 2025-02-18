@@ -34,7 +34,7 @@ def prepare_data(train):
 
     X_train = train.drop(columns = ['Survived'])
 
-    obj_features = list(X_train.select_dtypes(include=[object]))
+    obj_features = X_train.columns
     # st.write("Prepare_data")
     X_train = cata2lbl(X_train, obj_features,)
 
