@@ -31,17 +31,17 @@ def cata2lbl(df, feature, values):
 def prepare_data(train):
     Y_train = train['Survived']
 
-    X_train = train.drop(columns = ['Survived'])
+    # X_train = train.drop(columns = ['Survived'])
 
-    st.dataframe(X_train)
-    for feature in list(X_train.select_dtypes(include=[object])):
-        X_train = cata2lbl(X_train, feature, sorted(list(X_train[feature].unique())))
-        X_train = X_train.drop(columns = feature)
+    st.dataframe(train, hide_index=True)
+    for feature in list(train.select_dtypes(include=[object])):
+        train = cata2lbl(train, feature, sorted(list(train[feature].unique())))
+        train = train.drop(columns = feature)
     st.header('Data Loading completes')
     with st.expander('Data: '):
-        st.dataframe(X_train,hide_index=True)
+        st.dataframe(train,hide_index=True)
         st.dataframe(Y_train,hide_index=True)
-    return X_train, Y_train
+    return train, Y_train
 
 def col_drop_list(train):
     with st.sidebar:
