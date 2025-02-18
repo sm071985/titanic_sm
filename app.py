@@ -103,9 +103,9 @@ pModel = st.button("Prepare Model",)
 if pModel == True:
     X_train, Y_train = load_data()
     result_comp = pd.DataFrame(columns= ['Model', 'Kernel', 'Score'])
-    model = []
-    kernel = []
-    score = []
+    modelD = []
+    kernelD = []
+    scoreD = []
 
     st.header('Data Loading completed')
 
@@ -131,9 +131,9 @@ if pModel == True:
                 clf.fit(X_train, Y_train)
                 score = cross_val_score(clf, X_train, Y_train, cv=5).mean()
 
-                model = model.append(model)
-                kernel = kernel.append(kernel)
-                score = score.append(score)
+                modelD = modelD.append(model)
+                kernelD = kernelD.append(kernel)
+                scoreD = scoreD.append(score)
 
                 # result_comp = result_comp.update({'Model': model, 'Kernel': kernel, 'Score': score},)
                 # st.write(f"{model} : {kernel}: {score}")
@@ -144,18 +144,18 @@ if pModel == True:
             clf = models[model].fit(X_train, Y_train)
             score = cross_val_score(clf, X_train, Y_train, cv=5).mean()
 
-            model = model.append(model)
+            modelD = modelD.append(model)
             # kernel = kernel.append(kernel)
-            score = score.append(score)
+            scoreD = scoreD.append(score)
 
             # result_comp = result_comp.update({'Model': model, 'Kernel': None, 'Score': score},)
             # st.write(f"{model}: {score}")
             with open(f'./models/{model}.pkl', "wb") as f:
                 pkl.dump(clf, f)
 
-    result_comp['Model'] = model
-    result_comp['Kernel'] = kernel
-    result_comp['Score'] = score
+    result_comp['Model'] = modelD
+    result_comp['Kernel'] = kernelD
+    result_comp['Score'] = scoreD
 
     st.dataframe(result_comp, hide_index=True)
 
