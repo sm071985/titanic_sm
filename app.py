@@ -44,7 +44,7 @@ def prepare_data(train):
   
     train = cata2lbl(train, obj_features,)
 
-    X_train = X_train.drop(columns = obj_features)
+    #X_train = X_train.drop(columns = obj_features)
     
     # with st.expander('Data: '):
     #     st.dataframe(train,hide_index=True)
