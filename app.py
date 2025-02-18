@@ -102,11 +102,12 @@ def load_data():
 pModel = st.button("Prepare Model",)
 if pModel == True:
     X_train, Y_train = load_data()
-    result_comp = pd.DataFrame(columns= ['Model', 'Kernel', 'Score'])
+    res_comp = dict.fromkeys(['Model', 'Kernel', 'Score'])
+    # result_comp = pd.DataFrame(columns= ['Model', 'Kernel', 'Score'])
 
-    modelD = list()
-    kernelD = list()
-    scoreD = list()
+    # modelD = list()
+    # kernelD = list()
+    # scoreD = list()
 
     st.header('Data Loading completed')
 
@@ -132,11 +133,11 @@ if pModel == True:
                 clf.fit(X_train, Y_train)
                 score = cross_val_score(clf, X_train, Y_train, cv=5).mean()
 
-                modelD = modelD.append(model)
-                kernelD = kernelD.append(kernel)
-                scoreD = scoreD.append(score)
+                # modelD = modelD.append(model)
+                # kernelD = kernelD.append(kernel)
+                # scoreD = scoreD.append(score)
 
-                # result_comp = result_comp.update({'Model': model, 'Kernel': kernel, 'Score': score},)
+                result_comp = res_comp.update({'Model': model, 'Kernel': kernel, 'Score': score},)
                 # st.write(f"{model} : {kernel}: {score}")
                 with open(f'./models/{model}_{kernel}.pkl', "wb") as f:
                     pkl.dump(clf, f)
@@ -145,18 +146,18 @@ if pModel == True:
             clf = models[model].fit(X_train, Y_train)
             score = cross_val_score(clf, X_train, Y_train, cv=5).mean()
 
-            modelD = modelD.append(model)
-            # kernel = kernel.append(kernel)
-            scoreD = scoreD.append(score)
+            # modelD = modelD.append(model)
+            # # kernel = kernel.append(kernel)
+            # scoreD = scoreD.append(score)
 
-            # result_comp = result_comp.update({'Model': model, 'Kernel': None, 'Score': score},)
+            res_comp = res_comp.update({'Model': model, 'Kernel': None, 'Score': score},)
             # st.write(f"{model}: {score}")
             with open(f'./models/{model}.pkl', "wb") as f:
                 pkl.dump(clf, f)
 
-    result_comp['Model'] = modelD
-    result_comp['Kernel'] = kernelD
-    result_comp['Score'] = scoreD
+    # result_comp['Model'] = modelD
+    # result_comp['Kernel'] = kernelD
+    # result_comp['Score'] = scoreD
 
     st.dataframe(result_comp, hide_index=True)
 
