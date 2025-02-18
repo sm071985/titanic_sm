@@ -15,18 +15,21 @@ from sklearn.ensemble import RandomForestClassifier
 st.title("Training")
 # if 'columns_del' in st.session_state:
 #     del st.session_state['columns_del']
-
-with st.sidebar:
-    st.title("Select Features to delete: ")
-    with st.form('select features from delete:', clear_on_submit=True):
-        columns_del = st.multiselect("Select Columns: ", 
-                    ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ], default=None)
-        if columns_del is not None:
-            st.form_submit_button("Delete Columns")
-            st.session_state['columns_del'] = columns_del
-            st.write(f"Dropping columns: {columns_del}")
-        else:
-            st.session_state['columns_del'] = None
+def col_drop_list():
+    with st.sidebar:
+        st.title("Select Features to delete: ")
+        with st.form('select features from delete:', clear_on_submit=True):
+            columns_del = st.multiselect("Select Columns: ", 
+                        ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ], default=None)
+            update = st.form_submit_button("Delete Columns",)
+            if update:
+                return columns_del
+            # if columns_del is not None:
+            #     st.form_submit_button("Delete Columns")
+            #     st.session_state['columns_del'] = columns_del
+            #     st.write(f"Dropping columns: {columns_del}")
+            # else:
+            #     st.session_state['columns_del'] = None
 
 def age_band(df):
     df.loc[df['Age'] <= 16, 'AgeBand'] = '0 - 16'
@@ -52,12 +55,13 @@ def cata2lbl(df, feature, values):
 
 
 def prepare_data(train):
-
-    st.write(f"Dropping columns: {st.session_state['columns_del']}")
-    if st.session_state['columns_del'] is not None:
-        columns_del = st.session_state['columns_del']
-        st.write(f'Dropping columns: {columns_del}')
-        train = train.drop(columns = columns_del )
+    columns_del = col_drop_list()
+    if columns_del is not None:
+        st.write(f"Dropping columns: {columns_del}")
+        if columns_del is not None:
+            columns_del = st.session_state['columns_del']
+            st.write(f'Dropping columns: {columns_del}')
+            train = train.drop(columns = columns_del )
 
     Y_train = train['Survived']
 
