@@ -15,13 +15,14 @@ from sklearn.ensemble import RandomForestClassifier
 st.title("Training")
 # if 'columns_del' in st.session_state:
 #     del st.session_state['columns_del']
-def col_drop_list():
-    with st.sidebar:
-        st.title("Select Features to delete: ")
-        with st.form('select features from delete:', clear_on_submit=True):
-            columns_del = st.multiselect("Select Columns: ", 
+
+with st.sidebar:
+    st.title("Select Features to delete: ")
+    with st.form('select features from delete:', clear_on_submit=True):
+        columns_del = st.multiselect("Select Columns: ", 
                         ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ], default=None)
-            update = st.form_submit_button("Delete Columns",)
+        update = st.form_submit_button("Delete Columns",)
+        def col_drop_list():
             if update:
                 return columns_del
             # if columns_del is not None:
