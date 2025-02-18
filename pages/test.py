@@ -19,7 +19,7 @@ def take_input(model=None):
                 options = features[feature].keys()
                 # st.write(options)
                 tempV1 = features[feature][st.selectbox(f"Select value for {feature[::-1][2:][::-1]}", 
-                        options = options)]
+                        options = options, default_value = None), ]
                 empL = []
                 empL.append(tempV1)
                 new_data[feature] = empL
