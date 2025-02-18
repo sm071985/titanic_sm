@@ -127,7 +127,7 @@ if pModel == True:
                 clf.fit(X_train, Y_train)
                 score = cross_val_score(clf, X_train, Y_train, cv=5).mean()
 
-                result_comp = result_comp.append({'Model': model, 'Kernel': kernel, 'Score': score}, ignore_index=True)
+                result_comp = result_comp.update({'Model': model, 'Kernel': kernel, 'Score': score}, ignore_index=True)
                 # st.write(f"{model} : {kernel}: {score}")
                 with open(f'./models/{model}_{kernel}.pkl', "wb") as f:
                     pkl.dump(clf, f)
@@ -135,7 +135,7 @@ if pModel == True:
         else:
             clf = models[model].fit(X_train, Y_train)
             score = cross_val_score(clf, X_train, Y_train, cv=5).mean()
-            result_comp = result_comp.append({'Model': model, 'Kernel': None, 'Score': score}, ignore_index=True)
+            result_comp = result_comp.update({'Model': model, 'Kernel': None, 'Score': score}, ignore_index=True)
             # st.write(f"{model}: {score}")
             with open(f'./models/{model}.pkl', "wb") as f:
                 pkl.dump(clf, f)
