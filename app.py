@@ -49,7 +49,7 @@ def col_drop_list(train):
             update = st.form_submit_button("Delete Columns",)
             if update:
                 train = train.drop(columns = columns_del)
-                prepare_data(train)
+                return prepare_data(train)
 
 
 def age_band(df):
