@@ -16,30 +16,6 @@ st.title("Training")
 # if 'columns_del' in st.session_state:
 #     del st.session_state['columns_del']
 
-with st.sidebar:
-    st.title("Select Features to delete: ")
-    with st.form('select features from delete:', clear_on_submit=True):
-        columns_del = st.multiselect("Select Columns: ", 
-                        ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ], default=None)
-        update = st.form_submit_button("Delete Columns",)
-        def col_drop_list():
-            if update:
-                return columns_del
-            # if columns_del is not None:
-            #     st.form_submit_button("Delete Columns")
-            #     st.session_state['columns_del'] = columns_del
-            #     st.write(f"Dropping columns: {columns_del}")
-            # else:
-            #     st.session_state['columns_del'] = None
-
-def age_band(df):
-    df.loc[df['Age'] <= 16, 'AgeBand'] = '0 - 16'
-    df.loc[(df['Age'] > 16) & (df['Age'] <= 32), 'AgeBand'] = '17 - 32'
-    df.loc[(df['Age'] > 32) & (df['Age'] <= 48), 'AgeBand'] =   '33 - 48'
-    df.loc[(df['Age'] > 48) & (df['Age'] <= 64), 'AgeBand'] = '49 - 64'
-    df.loc[(df['Age'] > 64),'AgeBand'] = '65 Above'
-    return df
-
 feature_dict = {}
 def cata2lbl(df, feature, values):
     for value in values:
@@ -51,19 +27,8 @@ def cata2lbl(df, feature, values):
         df.loc[(df[feature] == value), feature+'_l'] = values.index(value)
     with open('./models/Features.pkl', 'wb') as f:
         pkl.dump(feature_dict, f)
-    # st.write(feature_dict,)
-    return df
-
 
 def prepare_data(train):
-    columns_del = col_drop_list()
-    if columns_del is not None:
-        st.write(f"Dropping columns: {columns_del}")
-        if columns_del is not None:
-            columns_del = st.session_state['columns_del']
-            st.write(f'Dropping columns: {columns_del}')
-            train = train.drop(columns = columns_del )
-
     Y_train = train['Survived']
 
     X_train = train.drop(columns = ['Survived'])
@@ -72,8 +37,32 @@ def prepare_data(train):
     for feature in list(X_train.select_dtypes(include=[object])):
         X_train = cata2lbl(X_train, feature, sorted(list(X_train[feature].unique())))
         X_train = X_train.drop(columns = feature)
-    # st.write(X_train)
+    st.header(Data Loading completes'')
     return X_train, Y_train
+
+def col_drop_list():
+    with st.sidebar:
+        st.title("Select Features to delete: ")
+        with st.form('select features from delete:', clear_on_submit=True):
+            columns_del = st.multiselect("Select Columns: ", 
+                            ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ], default=None)
+            update = st.form_submit_button("Delete Columns",)
+            if update:
+                train = train.drop(columns = columns_del)
+                prepare_data(train)
+
+
+def age_band(df):
+    df.loc[df['Age'] <= 16, 'AgeBand'] = '0 - 16'
+    df.loc[(df['Age'] > 16) & (df['Age'] <= 32), 'AgeBand'] = '17 - 32'
+    df.loc[(df['Age'] > 32) & (df['Age'] <= 48), 'AgeBand'] =   '33 - 48'
+    df.loc[(df['Age'] > 48) & (df['Age'] <= 64), 'AgeBand'] = '49 - 64'
+    df.loc[(df['Age'] > 64),'AgeBand'] = '65 Above'
+    return df
+
+
+    # st.write(feature_dict,)
+    return df
 
 
 @st.cache_data
@@ -82,7 +71,8 @@ def load_data():
     train = train.dropna()
     train = age_band(train)
     train = train.drop(columns = ['Age'])
-    X_train, Y_train = prepare_data(train)
+    X_train, Y_train = col_drop_list(train)
+    # X_train, Y_train = prepare_data(train)
     return X_train, Y_train
 
 
@@ -99,9 +89,10 @@ def load_data():
 # st.dataframe(X_trainC,hide_index=True)
 # st.dataframe(X_testC,hide_index=True)
 load_data()
-st.write("Model train")
 
-st.session_state['pModel'] = st.button("Preapare Model",)
+st.header("Model train")
+
+pModel = st.button("Preapare Model",)
 if st.session_state['pModel'] == True:
     models = {
         "SVM" : {'model' : SVC(), 'kernel' : ['linear', 'rbf', 'poly', 'sigmoid'] },
