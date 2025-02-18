@@ -34,7 +34,7 @@ def cata2lbl(df, features):
     return df
 
 def prepare_data(train):
-    Y_train = train['Survived']
+    # Y_train = train['Survived']
 
     X_train = train.drop(columns = ['Survived'])
     # st.write("Prepare_data")
@@ -49,7 +49,7 @@ def prepare_data(train):
     # with st.expander('Data: '):
     #     st.dataframe(train,hide_index=True)
     #     st.dataframe(Y_train,hide_index=True)
-    return X_train, Y_train
+    return X_train
 
 def col_drop_list(train):
 
@@ -61,10 +61,9 @@ def col_drop_list(train):
             update = st.form_submit_button("Delete Columns",)
             if update:
                 train = train.drop(columns = columns_del)
-
-    train, Y_train = prepare_data(train)
+                train = prepare_data(train)
     
-    return train, Y_train
+    return train
 
 
 def age_band(df):
@@ -98,9 +97,9 @@ def load_data():
     train = age_band(train)
     train = train.drop(columns = ['Age'])
     # col_drop_list(train)
-    X_train, Y_train = col_drop_list(train)
+    X_train = col_drop_list(train)
     # X_train, Y_train = prepare_data(train)
-    return X_train, Y_train
+    return X_train, train['Survived']
 
 
 
