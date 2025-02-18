@@ -148,11 +148,11 @@ if pModel == True:
             # kernel = kernel.append(kernel)
             score = score.append(score)
 
-            result_comp = result_comp.update({'Model': model, 'Kernel': None, 'Score': score},)
+            # result_comp = result_comp.update({'Model': model, 'Kernel': None, 'Score': score},)
             # st.write(f"{model}: {score}")
             with open(f'./models/{model}.pkl', "wb") as f:
                 pkl.dump(clf, f)
-                
+
     result_comp['Model'] = model
     result_comp['Kernel'] = kernel
     result_comp['Score'] = score
