@@ -40,20 +40,25 @@ def prepare_data(train):
 
     return X_train
 
-def col_drop_list(train):
+# def col_drop_list(train):
+#     with st.sidebar:
+#         st.title("Select Features to delete: ")
+#         with st.form('select features from delete:', clear_on_submit=True):
+#             columns_del = st.multiselect("Select Columns: ", 
+#                             ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ], default=None)
+#             update = st.form_submit_button("Delete Columns",)
+#             if update:
+#                 train = train.drop(columns = columns_del)
+#                 train = prepare_data(train)
+    
+#     return train
 
-    with st.sidebar:
-        st.title("Select Features to delete: ")
-        with st.form('select features from delete:', clear_on_submit=True):
-            columns_del = st.multiselect("Select Columns: ", 
-                            ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ], default=None)
-            update = st.form_submit_button("Delete Columns",)
-            if update:
-                train = train.drop(columns = columns_del)
-                train = prepare_data(train)
+def col_drop_list(train):
+    columns_del = ['PassengerId', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ]
+    train = train.drop(columns = columns_del)
+    train = prepare_data(train)
     
     return train
-
 
 def age_band(df):
     df.loc[df['Age'] <= 16, 'AgeBand'] = '0 - 16'
