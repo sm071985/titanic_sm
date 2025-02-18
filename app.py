@@ -98,11 +98,11 @@ def load_data():
 # st.dataframe(X_trainC,hide_index=True)
 # st.dataframe(X_testC,hide_index=True)
 
-
+res_comp = dict.fromkeys(['Model', 'Kernel', 'Score'])
 pModel = st.button("Prepare Model",)
 if pModel == True:
     X_train, Y_train = load_data()
-    res_comp = dict.fromkeys(['Model', 'Kernel', 'Score'])
+    
     # result_comp = pd.DataFrame(columns= ['Model', 'Kernel', 'Score'])
 
     # modelD = list()
