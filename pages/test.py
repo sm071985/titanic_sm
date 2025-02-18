@@ -10,7 +10,7 @@ def take_input(model=None):
     if model is not None:
         with st.form('Select Parameters to test:', ):
             features = pkl.load(open(f'./models/Features.pkl', 'rb'))
-            # st.write(features)
+            st.write(features)
             keys = [x for x in features.keys()]
             default_value = None
             new_data = dict.fromkeys(keys, default_value)
