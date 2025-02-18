@@ -49,7 +49,7 @@ def load_data():
     train = train.drop(columns = ['Age'])
 
 
-    # columns_del = ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ]
+    st.write(f"Dropping columns: {st.session_state['columns_del']}")
     if st.session_state['columns_del'] is not None:
         columns_del = st.session_state['columns_del']
         st.write(f'Dropping columns: {columns_del}')
