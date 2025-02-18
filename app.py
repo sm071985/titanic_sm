@@ -33,9 +33,10 @@ def prepare_data(train):
     Y_train = train['Survived']
 
     # X_train = train.drop(columns = ['Survived'])
-    st.write("Prepare_data'")
-    st.dataframe(train, hide_index=True)
+    st.write("Prepare_data")
+    # st.dataframe(train, hide_index=True)
     obj_features = list(train.select_dtypes(include=[object]))
+    st.write("Prepare_data")
     for feature in obj_features:
         train = cata2lbl(train, feature, sorted(list(train[feature].unique())))
 
