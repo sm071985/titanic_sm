@@ -159,7 +159,7 @@ if pModel == True:
     # result_comp['Kernel'] = kernelD
     # result_comp['Score'] = scoreD
 
-    st.dataframe(res_comp, hide_index=True)
+    st.dataframe(pd.DataFrame(res_comp), hide_index=True)
 
 # st.button("Test Model", on_click=test_page)
 
