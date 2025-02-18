@@ -21,7 +21,8 @@ with st.sidebar:
     with st.form('select features from delete:', clear_on_submit=True):
         columns_del = st.multiselect("Select Columns: ", 
                     ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ], default=None)
-        if st.form_submit_button("Delete Columns"):
+        if columns_del is not None:
+            st.form_submit_button("Delete Columns")
             st.session_state['columns_del'] = columns_del
             st.write(f"Dropping columns: {columns_del}")
         else:
@@ -51,6 +52,7 @@ def cata2lbl(df, feature, values):
 
 
 def prepare_data(train):
+
     st.write(f"Dropping columns: {st.session_state['columns_del']}")
     if st.session_state['columns_del'] is not None:
         columns_del = st.session_state['columns_del']
