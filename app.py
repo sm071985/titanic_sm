@@ -42,7 +42,12 @@ def load_data():
     train = age_band(train)
     train = train.drop(columns = ['Age'])
 
-    train = train.drop(columns = ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ])
+    with st.sidebar:
+        st.title("Select Features to delete: ")
+        columns_del = st.multiselect("Select Columns", ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ])
+    # columns_del = ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ]
+    if len(columns_del) != 0:
+        train = train.drop(columns = columns_del )
 
     # test = test.drop(columns = ['PassengerId', 'Pclass', 'Name','SibSp', 'Parch', 'Ticket', 'Fare', 'Cabin' ])
 
