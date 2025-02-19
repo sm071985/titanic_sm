@@ -6,6 +6,16 @@ import pickle as pkl
 if 'model_loaded' not in st.session_state:
     st.session_state['model_loaded'] = None
 
+@st.cache_resource
+def predict_result(test_data, columns):
+    with open('./models/Scaler.pkl', 'rb') as f:
+        scaler = pkl.load(f)
+        new_data = scaler.transform(new_data) 
+        new_data =  pd.DataFrame(new_data,columns=columns) # Apply scaling on the test data
+        
+        y_pred=model.predict(new_data)
+        return y_pred
+
 def take_input(model=None):
     if model is not None:
         with st.form('Select Parameters to test:', ):
@@ -30,13 +40,11 @@ def take_input(model=None):
                 # st.write(new_data)
                 # st.write(subB) 
         # st.write(pd.DataFrame(new_data).reset_index())
-        test_data = pd.DataFrame(new_data,)
+        new_data = pd.DataFrame(new_data,)
         columns = test_data.columns
 
-        with open('./models/Scaler.pkl', 'rb') as f:
-            scaler = pkl.load(f)
-            new_data = scaler.transform(test_data)  # Apply scaling on the test data
-        y_pred=model.predict(pd.DataFrame(new_data,columns=columns)) 
+        y_pred = predict_results(new_data, columns)
+        
         if y_pred[0] == 0:
             st.subheader('Predicted Class: Didn\'t Survived')
         else:
