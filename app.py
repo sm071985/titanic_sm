@@ -70,6 +70,7 @@ def load_data():
 
 
     train = pd.read_csv("./dataset/train.csv")
+    st.write(train.isnull().sum())
     from sklearn.impute import KNNImputer
 
     # Assuming train_data is your DataFrame
@@ -85,7 +86,7 @@ def load_data():
     train['Age'] = age_imputed
 
     train = train.dropna()
-    st.write(train.isnull().sum())
+    
     train = age_band(train)
     train = train.drop(columns = ['Age'])
     # col_drop_list(train)
@@ -93,19 +94,6 @@ def load_data():
     # X_train, Y_train = prepare_data(train)
     return X_train, train['Survived']
 
-
-
-
-# le = LabelEncoder()
-
-# X_trainC = X_train.select_dtypes(include=[object]).apply(le.fit_transform)
-# X_trainC['AgeB'] = X_train['AgeBand']
-
-# X_testC = test.select_dtypes(include=[object]).apply(le.fit_transform)
-# X_testC['AgeB'] = test['AgeBand']
-
-# st.dataframe(X_trainC,hide_index=True)
-# st.dataframe(X_testC,hide_index=True)
 
 res_comp = dict.fromkeys(['Model', 'Kernel', 'Score'])
 modelD = list()
