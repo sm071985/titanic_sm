@@ -46,7 +46,10 @@ def col_drop_list(train):
     columns_del = ['PassengerId', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ]
     train = train.drop(columns = columns_del)
     train = prepare_data(train)
-    
+    scaler = StandardScaler()
+    scaler.fit(train)
+    train = scaler.transform(train)
+    st.dataframe(train.head(), hide_index = True)    
     return train
 
 def age_band(df):
