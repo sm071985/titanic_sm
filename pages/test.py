@@ -6,7 +6,7 @@ import pickle as pkl
 if 'model_loaded' not in st.session_state:
     st.session_state['model_loaded'] = None
 
-@st.cache_resource
+
 def predict_results(model, new_data):
     with open('./models/Scaler.pkl', 'rb') as f:
         columnsN = new_data.columns
@@ -51,7 +51,7 @@ def take_input(model=None):
         else:
             st.subheader('Predicted Class: Survived')    
 
-# @st.cache_resource
+@st.cache_resource
 def load_model(model, kernel):
     try:
         match model:
