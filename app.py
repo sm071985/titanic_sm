@@ -49,7 +49,8 @@ def col_drop_list(train):
     scaler = StandardScaler()
     scaler.fit(train)
     train = scaler.transform(train)
-    st.dataframe(pd.DataFrame(train).head(), hide_index = True)    
+    train = pd.DataFrame(train)
+    st.dataframe(train.head(), hide_index = True)    
     return train
 
 def age_band(df):
