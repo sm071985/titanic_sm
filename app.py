@@ -31,7 +31,7 @@ def cata2lbl(df, features):
     return df
 
 def prepare_data(train):
-    # Y_train = train['Survived']
+    Y_train = train['Survived']
 
     X_train = train.drop(columns = ['Survived'])
 
@@ -39,7 +39,7 @@ def prepare_data(train):
     # st.write("Prepare_data")
     X_train = cata2lbl(X_train, obj_features,)
 
-    return X_train
+    return X_train, Y_train
 
 
 def col_drop_list(train):
@@ -47,7 +47,7 @@ def col_drop_list(train):
     columns_del = ['PassengerId', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ]
     train = train.drop(columns = columns_del)
     train = train.dropna()
-    train = prepare_data(train)
+    train, Y_train = prepare_data(train)
     columns = train.columns
     scaler = StandardScaler()
     scaler.fit(train)
@@ -56,7 +56,7 @@ def col_drop_list(train):
     with open('./models/Scaler.pkl', 'wb') as f:
         pkl.dump(scaler, f)
     # st.dataframe(train.head(), hide_index = True)    
-    return train
+    return train, Y_train
 
 def age_band(df):
     df.loc[df['Age'] <= 16, 'AgeBand'] = '0 - 16'
@@ -92,9 +92,9 @@ def load_data():
     train = age_band(train)
     train = train.drop(columns = ['Age'])
     # col_drop_list(train)
-    X_train = col_drop_list(train)
+    X_train, Y_train = col_drop_list(train)
     # X_train, Y_train = prepare_data(train)
-    return X_train, train['Survived']
+    return X_train, Y_train
 
 
 res_comp = dict.fromkeys(['Model', 'Kernel', 'Score'])
