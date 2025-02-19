@@ -43,7 +43,7 @@ def prepare_data(train):
 
 
 def col_drop_list(train):
-    print(train.isnull().sum())
+    st.write(train.isnull().sum())
     columns_del = ['PassengerId', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ]
     train = train.drop(columns = columns_del)
     train = prepare_data(train)
