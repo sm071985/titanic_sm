@@ -11,7 +11,7 @@ def predict_results(test_data, columnsN):
     with open('./models/Scaler.pkl', 'rb') as f:
         scaler = pkl.load(f)
         new_data = scaler.transform(test_data) 
-        new_data =  pd.DataFrame(new_data,columns=columns) # Apply scaling on the test data
+        new_data =  pd.DataFrame(new_data,columns=columnsN) # Apply scaling on the test data
         st.dataframe(new_data, hide_index= True)
         y_pred=model.predict(new_data)
         return y_pred
@@ -40,7 +40,7 @@ def take_input(model=None):
                 # st.write(new_data)
                 # st.write(subB) 
         # st.write(pd.DataFrame(new_data).reset_index())
-        new_data = pd.DataFrame(new_data,)
+        new_data = pd.DataFrame(new_data)
         columnsN = new_data.columns
 
         y_pred = predict_results(new_data, columnsN)
