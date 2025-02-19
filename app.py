@@ -46,10 +46,11 @@ def col_drop_list(train):
     columns_del = ['PassengerId', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ]
     train = train.drop(columns = columns_del)
     train = prepare_data(train)
+    columns = train.columns
     scaler = StandardScaler()
     scaler.fit(train)
     train = scaler.transform(train)
-    train = pd.DataFrame(train)
+    train = pd.DataFrame(train, columns=columns)
     with open('./models/Scaler.pkl', 'wb') as f:
         pkl.dump(scaler, f)
     # st.dataframe(train.head(), hide_index = True)    
