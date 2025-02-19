@@ -7,7 +7,7 @@ if 'model_loaded' not in st.session_state:
     st.session_state['model_loaded'] = None
 
 @st.cache_resource
-def predict_results(new_data):
+def predict_results(model, new_data):
     with open('./models/Scaler.pkl', 'rb') as f:
         columnsN = new_data.columns
         scaler = pkl.load(f)
@@ -44,7 +44,7 @@ def take_input(model=None):
         new_data = pd.DataFrame(new_data)
         # columnsN = new_data.columns
 
-        y_pred = predict_results(new_data)
+        y_pred = predict_results(model, new_data)
         
         if y_pred[0] == 0:
             st.subheader('Predicted Class: Didn\'t Survived')
