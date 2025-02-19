@@ -50,6 +50,8 @@ def col_drop_list(train):
     scaler.fit(train)
     train = scaler.transform(train)
     train = pd.DataFrame(train)
+    with open('./models/Scaler.pkl', 'wb') as f:
+        pkl.dump(scaler, f)
     # st.dataframe(train.head(), hide_index = True)    
     return train
 
