@@ -86,7 +86,9 @@ def load_data():
     train['Age'] = age_imputed
 
     train = train.dropna()
-    
+
+    st.write("After dropping")
+    st.write(train.isnull().sum())
     train = age_band(train)
     train = train.drop(columns = ['Age'])
     # col_drop_list(train)
