@@ -30,12 +30,17 @@ def take_input(model=None):
                 # st.write(new_data)
                 # st.write(subB) 
         # st.write(pd.DataFrame(new_data).reset_index())
-        y_pred=model.predict(pd.DataFrame(new_data,)) 
+        test_data = pd.DataFrame(new_data,)
+        columns = test_data.columns
+
+        with open('./models/Scaler.pkl', 'rb') as f:
+            scaler = pkl.load(f)
+            new_data = scaler.transform(test_data)  # Apply scaling on the test data
+        y_pred=model.predict(pd.DataFrame(new_data,columns=columns)) 
         if y_pred[0] == 0:
             st.subheader('Predicted Class: Didn\'t Survived')
         else:
-            st.subheader('Predicted Class: Survived')
-        # st.write(f'Predicted Class: {y_pred[0]}')      
+            st.subheader('Predicted Class: Survived')    
 
 # @st.cache_resource
 def load_model(model, kernel):
