@@ -46,6 +46,7 @@ def col_drop_list(train):
     
     columns_del = ['PassengerId', 'Name','SibSp', 'Parch', 'Ticket', 'Fare','Cabin', ]
     train = train.drop(columns = columns_del)
+    train = train.dropna()
     train = prepare_data(train)
     columns = train.columns
     scaler = StandardScaler()
@@ -68,9 +69,8 @@ def age_band(df):
 # @st.cache_data
 def load_data():
 
-
     train = pd.read_csv("./dataset/train.csv")
-    st.write(train.isnull().sum())
+
     from sklearn.impute import KNNImputer
 
     # Assuming train_data is your DataFrame
@@ -85,10 +85,10 @@ def load_data():
     # Replace the 'Age' column with the imputed values
     train['Age'] = age_imputed
 
-    train = train.dropna()
+    # train = train.dropna()
 
     st.write("After dropping")
-    st.write(train.isnull().sum())
+
     train = age_band(train)
     train = train.drop(columns = ['Age'])
     # col_drop_list(train)
